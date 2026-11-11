@@ -39,7 +39,9 @@ npm start
 - `/create-diary` — set a name, diary title, and animated date-of-birth lock.
 - `/my-diary/<id>` — write and draw on pages, format text, and turn pages.
 - Visitor diaries can be reopened with their date-of-birth lock and are autosaved in that browser's local storage.
-- The save button explains that online saving is unavailable during maintenance. Local storage is not encrypted or backed up.
+- The bookshelf can delete one notebook or clear all notebooks from local storage.
+- `/maintenance` — shown after Anshuu's notebook unlocks or when a visitor asks to save/share online; it explains that online saving is unavailable and diaries remain only in the current browser.
+- Local storage is not encrypted or backed up.
 
 ## Deploy
 

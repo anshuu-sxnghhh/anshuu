@@ -347,7 +347,9 @@ export function CustomDiary({
   const [linkUrl, setLinkUrl] = useState("");
   const [editorMode, setEditorMode] = useState<EditorMode>("write");
   const [ready, setReady] = useState(false);
+  const [showStorageNotice, setShowStorageNotice] = useState(initialView === "book");
   const editorRef = useRef<HTMLDivElement>(null);
+  const storageNoticeRef = useRef<HTMLDialogElement>(null);
   const selectionRef = useRef<Range | null>(null);
   const skipEditorSyncRef = useRef(false);
 
@@ -397,6 +399,13 @@ export function CustomDiary({
     }
     editorRef.current.innerHTML = sanitizeDiaryHtml(pageContent);
   }, [activeDiaryId, pageContent, pageIndex, view]);
+
+  useEffect(() => {
+    const dialog = storageNoticeRef.current;
+    if (!dialog || !ready || view !== "book" || !activeDiary) return;
+    if (showStorageNotice && !dialog.open) dialog.showModal();
+    if (!showStorageNotice && dialog.open) dialog.close();
+  }, [activeDiary, ready, showStorageNotice, view]);
 
   function persist(nextDiaries: LocalDiary[]) {
     try {
@@ -565,10 +574,7 @@ export function CustomDiary({
 
   function saveNotebook() {
     if (!persist(diaries)) return;
-    setNotice({
-      tone: "maintenance",
-      message: "Anshuu's website is under maintenance, so we can't save your precious diary online. Your pages are safe on this device. Please come back in one week. We're sorry!",
-    });
+    router.push("/maintenance?from=save");
   }
 
   if (!ready) {
@@ -605,6 +611,34 @@ export function CustomDiary({
 
     return (
       <section aria-label={`${activeDiary.title} editor`} className="custom-diary-app custom-book-app">
+        {showStorageNotice && (
+          <dialog
+              aria-describedby="diary-storage-notice-copy"
+              aria-labelledby="diary-storage-notice-title"
+              className="diary-storage-notice"
+              onCancel={(event) => {
+                event.preventDefault();
+                setShowStorageNotice(false);
+              }}
+              ref={storageNoticeRef}
+            >
+              <span aria-hidden="true" className="diary-storage-icon">!</span>
+              <p className="diary-storage-eyebrow">A QUICK NOTE BEFORE YOU WRITE</p>
+              <h2 id="diary-storage-notice-title">This site is under maintenance</h2>
+              <p id="diary-storage-notice-copy">
+                Your diary is <strong>not saved to a server</strong>. It is saved only in this browser on this device.
+                If you clear this browser&apos;s data or switch devices, your diary may be lost.
+              </p>
+              <button
+                autoFocus
+                className="diary-storage-continue"
+                onClick={() => setShowStorageNotice(false)}
+                type="button"
+              >
+                I understand — open my diary
+              </button>
+          </dialog>
+        )}
         <div className="book-topbar">
           <div className="book-title-row">
             <h1>{activeDiary.title}</h1>
@@ -820,33 +854,75 @@ export function CustomDiary({
 
   if (diaries.length === 0) return null;
 
+  function deleteNotebook(diaryId: string) {
+    const diary = diaries.find((entry) => entry.id === diaryId);
+    if (!diary || !window.confirm(`Delete “${diary.title}” from this device? This cannot be undone.`)) return;
+    const nextDiaries = diaries.filter((entry) => entry.id !== diaryId);
+    if (!persist(nextDiaries)) return;
+    setDiaries(nextDiaries);
+    setNotice({ tone: "saved", message: "Notebook deleted from this device." });
+  }
+
+  function clearBookshelf() {
+    if (!window.confirm("Delete all notebooks from this device? This cannot be undone.")) return;
+    try {
+      window.localStorage.removeItem(storageKey);
+      setDiaries([]);
+      setNotice(null);
+    } catch (error) {
+      console.error("Unable to clear the local notebook bookshelf.", error);
+      setNotice({
+        tone: "error",
+        message: "This browser couldn't clear the bookshelf. Check your browser storage settings and try again.",
+      });
+    }
+  }
+
   return (
     <section aria-label="Your saved diaries" className="custom-diary-app custom-diary-shelf">
       {notice?.tone === "error" && <p aria-live="polite" className="custom-diary-error" role="alert">{notice.message}</p>}
       {diaries.length > 0 && (
-        <div aria-label="Your saved notebooks" className="saved-diary-list">
-          {diaries.map((diary) => (
-            <article className="saved-diary-card" key={diary.id}>
-              <span aria-hidden="true" className="saved-diary-icon">✦</span>
-              <div>
-                <h3>{diary.title}</h3>
-                <p>By {diary.ownerName} · Updated {formatCreatedAt(diary.updatedAt)}</p>
-              </div>
-              <button
-                className="shelf-open-button"
-                onClick={() => {
-                  setUnlockDiaryId(diary.id);
-                  setDate(startingDate);
-                  setNotice(null);
-                  setView("unlock");
-                }}
-                type="button"
-              >
-                Open <span aria-hidden="true">↗</span>
-              </button>
-            </article>
-          ))}
-        </div>
+        <>
+          <div className="saved-diary-heading">
+            <h2>Your bookshelf</h2>
+            <button className="clear-bookshelf-button" onClick={clearBookshelf} type="button">
+              Delete all
+            </button>
+          </div>
+          <div aria-label="Your saved notebooks" className="saved-diary-list">
+            {diaries.map((diary) => (
+              <article className="saved-diary-card" key={diary.id}>
+                <span aria-hidden="true" className="saved-diary-icon">✦</span>
+                <div className="saved-diary-details">
+                  <h3>{diary.title}</h3>
+                  <p>By {diary.ownerName} · Updated {formatCreatedAt(diary.updatedAt)}</p>
+                </div>
+                <div className="saved-diary-actions">
+                  <button
+                    className="shelf-open-button"
+                    onClick={() => {
+                      setUnlockDiaryId(diary.id);
+                      setDate(startingDate);
+                      setNotice(null);
+                      setView("unlock");
+                    }}
+                    type="button"
+                  >
+                    Open <span aria-hidden="true">↗</span>
+                  </button>
+                  <button
+                    aria-label={`Delete ${diary.title} from this device`}
+                    className="delete-diary-button"
+                    onClick={() => deleteNotebook(diary.id)}
+                    type="button"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
       )}
     </section>
   );

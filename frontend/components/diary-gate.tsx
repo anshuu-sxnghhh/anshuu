@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useState } from "react";
 import { verifyDiaryAccess, type DiaryAccessState } from "@/app/personal-diary/actions";
 import { DateWheel } from "@/components/date-wheel";
 
@@ -17,27 +17,20 @@ const dateWheels: { key: DatePart; label: string; min: number; max: number }[] =
 
 const initialState: DiaryAccessState = { status: "idle", message: "" };
 
-function MaintenanceNote() {
-  return (
-    <section aria-labelledby="locked-diary-title" className="diary-unlocked diary-intro diary-book-cover">
-      <p className="diary-kicker"><span aria-hidden="true">✦</span> A LITTLE NOTE FOR YOU</p>
-      <h1 className="diary-unlocked-title" id="locked-diary-title">
-        A page that&apos;s<br />still unfolding.
-      </h1>
-      <p className="diary-maintenance-copy">Anshuu&apos;s notebook is under maintenance. Come back in one week.</p>
-      <div aria-hidden="true" className="diary-divider"><span>✦</span></div>
-      <Link className="diary-back-link" href="/">Back to the beginning <span aria-hidden="true">↗</span></Link>
-    </section>
-  );
-}
-
 export function DiaryGate() {
+  const router = useRouter();
   const [showLock, setShowLock] = useState(false);
   const [values, setValues] = useState(startingValues);
   const [state, formAction, isPending] = useActionState(verifyDiaryAccess, initialState);
 
+  useEffect(() => {
+    if (state.status === "unlocked") {
+      router.replace("/maintenance?from=anshuu");
+    }
+  }, [router, state.status]);
+
   if (state.status === "unlocked") {
-    return <MaintenanceNote />;
+    return <p aria-live="polite" className="diary-maintenance-copy">Opening Anshuu&apos;s notebook…</p>;
   }
 
   if (!showLock) {
