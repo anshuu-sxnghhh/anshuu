@@ -1,0 +1,108 @@
+{
+  "profile": {
+    "name": "Anshuu Singh",
+    "location": "India",
+    "headline": "BCA Student · Aspiring Software Developer · Technology Builder",
+    "heroEyebrow": "DEVELOPER · STUDENT · BUILDER",
+    "heroStatement": "Building practical digital experiences and learning by shipping real projects.",
+    "shortBio": "I'm Anshuu Singh, a BCA student interested in software development, mobile applications and the way thoughtful technology can solve everyday problems. I enjoy turning ideas into working prototypes, exploring new tools and contributing to student tech communities.",
+    "about": "My journey is shaped by curiosity, hands-on experimentation and a desire to understand how products work beyond the screen. From exploring native Android development with Kotlin to building web projects and developing ideas for hackathons, I learn best by creating, testing and improving. I am continuing to grow my engineering fundamentals while looking for opportunities to contribute to meaningful products and collaborative teams.",
+    "locationCity": "TODO: confirm city before publishing",
+    "education": {
+      "institution": "Shivalik University (confirm exact institution and preferred public name)",
+      "degree": "TODO: confirm exact degree title",
+      "program": "BCA (confirm before publishing)",
+      "semester": "TODO: confirm current semester",
+      "startYear": null,
+      "endYear": null
+    },
+    "skills": [
+      { "name": "Kotlin", "category": "Mobile development", "levelLabel": "Learning / project practice — confirm" },
+      { "name": "Android Studio", "category": "Mobile development", "levelLabel": "Learning / project practice — confirm" },
+      { "name": "MongoDB", "category": "Database", "levelLabel": "Exploring / project preference — confirm actual use" },
+      { "name": "HTML", "category": "Web development", "levelLabel": "Project practice — confirm" },
+      { "name": "CSS", "category": "Web development", "levelLabel": "Project practice — confirm" },
+      { "name": "JavaScript", "category": "Web development", "levelLabel": "Project practice — confirm" },
+      { "name": "Git & GitHub", "category": "Tools", "levelLabel": "Project practice — confirm" }
+    ],
+    "community": [
+      {
+        "name": "StackFlame",
+        "description": "BCA department student tech club context; confirm your exact role and dates before publishing."
+      }
+    ],
+    "social": {
+      "github": "",
+      "linkedin": "",
+      "instagram": "",
+      "youtube": "",
+      "email": "",
+      "resume": ""
+    }
+  },
+  "projects": [
+    {
+      "slug": "kavach-sos",
+      "title": "Kavach — SOS Safety App",
+      "category": "Mobile application concept / prototype",
+      "status": "Confirm current implementation status",
+      "summary": "A safety-focused mobile application concept exploring emergency assistance, contact/location sharing and evidence-supported incident reporting.",
+      "problem": "People may need a fast way to alert trusted contacts and share useful context during an emergency.",
+      "role": "TODO: describe your actual contribution and team responsibilities.",
+      "stack": ["Kotlin", "Android Studio", "MongoDB — planned/preferred; confirm actual use"],
+      "implementedFeatures": [],
+      "plannedFeatures": ["TODO: list features that were only planned"],
+      "github": "",
+      "liveDemo": "",
+      "images": [],
+      "notes": "Do not claim production deployment, verified AI accuracy, police integration or unimplemented features. Describe evidence capture with consent and privacy safeguards."
+    },
+    {
+      "slug": "flash-flood-prediction",
+      "title": "Flash Flood Prediction for Hilly Regions",
+      "category": "Disaster management / hackathon concept",
+      "status": "Confirm implementation and hackathon outcome",
+      "summary": "A disaster-management project direction exploring multi-source data for flash-flood risk prediction in hilly regions.",
+      "problem": "Flash floods in hilly regions can develop quickly, making timely risk awareness and decision support important.",
+      "role": "TODO: describe your actual team role and contribution.",
+      "stack": [],
+      "dataSources": [],
+      "model": "TODO: add actual model or mark as proposed",
+      "results": "TODO: add only measured, reproducible results",
+      "github": "",
+      "liveDemo": "",
+      "images": [],
+      "notes": "Do not invent model accuracy, datasets, government adoption, deployment or awards."
+    }
+  ],
+  "events": [
+    {
+      "name": "Code Clash",
+      "context": "Student coding competition discussed in connection with StackFlame / Shivalik University.",
+      "date": "2026-10-09",
+      "role": "TODO: confirm exact role and whether event took place",
+      "published": false
+    },
+    {
+      "name": "Prompt Wars — Shiva Tech 2026",
+      "context": "Student technology event discussed in connection with Shivalik University.",
+      "date": "2026-10-09",
+      "role": "TODO: confirm exact role and whether event took place",
+      "published": false
+    }
+  ],
+  "content": [],
+  "speaking": [],
+  "experience": [],
+  "ownerTodo": [
+    "Confirm exact BCA degree title, institution display name, semester and education dates.",
+    "Confirm city/location, or keep only India.",
+    "Confirm skill proficiency and which technologies were actually used in each project.",
+    "Add GitHub, LinkedIn, email, resume and any other public links.",
+    "Add project repository/demo links, screenshots, project status and precise individual contributions.",
+    "Confirm the role and completion details for Code Clash / Prompt Wars before publishing event entries.",
+    "Add verified internship provider, project titles, dates and certificates only if applicable.",
+    "Add real videos/articles or leave Content hidden until there are published items.",
+    "Add real speaking engagements only if you have actually spoken at them."
+  ]
+}
