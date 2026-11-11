@@ -586,7 +586,7 @@ export function CustomDiary({
       return (
         <section className="custom-diary-app custom-diary-form-card">
           <p className="diary-kicker">This notebook isn&apos;t on this device.</p>
-          <button className="book-text-button" onClick={() => router.push("/personal-diary")} type="button">My bookshelf</button>
+          <button className="book-text-button" onClick={() => router.push("/bookshelf")} type="button">My bookshelf</button>
         </section>
       );
     }
@@ -644,7 +644,7 @@ export function CustomDiary({
             <h1>{activeDiary.title}</h1>
             <span className="book-owner">{activeDiary.ownerName}</span>
           </div>
-          <button aria-label="Back to diaries" className="book-text-button" onClick={() => router.push("/personal-diary")} type="button">
+          <button aria-label="Back to diaries" className="book-text-button" onClick={() => router.push("/bookshelf")} type="button">
             <span aria-hidden="true">←</span><span className="book-back-label">Diaries</span>
           </button>
         </div>
@@ -773,7 +773,7 @@ export function CustomDiary({
   if (view === "create") {
     return (
       <section aria-labelledby="create-diary-heading" className="custom-diary-app custom-diary-form-card">
-        <button className="book-text-button form-back-button" onClick={() => router.push("/personal-diary")} type="button">
+        <button className="book-text-button form-back-button" onClick={() => router.push("/bookshelf")} type="button">
           ← My bookshelf
         </button>
         <p className="diary-kicker"><span aria-hidden="true">✦</span> A BOOK OF YOUR OWN</p>
@@ -852,8 +852,6 @@ export function CustomDiary({
     );
   }
 
-  if (diaries.length === 0) return null;
-
   function deleteNotebook(diaryId: string) {
     const diary = diaries.find((entry) => entry.id === diaryId);
     if (!diary || !window.confirm(`Delete “${diary.title}” from this device? This cannot be undone.`)) return;
@@ -881,7 +879,16 @@ export function CustomDiary({
   return (
     <section aria-label="Your saved diaries" className="custom-diary-app custom-diary-shelf">
       {notice?.tone === "error" && <p aria-live="polite" className="custom-diary-error" role="alert">{notice.message}</p>}
-      {diaries.length > 0 && (
+      {diaries.length === 0 ? (
+        <div className="empty-bookshelf">
+          <p className="diary-kicker">YOUR NOTEBOOKS, ALL IN ONE PLACE</p>
+          <h1>Your bookshelf is waiting.</h1>
+          <p>Diaries you create on this device will appear here.</p>
+          <button className="diary-enter-button" onClick={() => router.push("/create-diary")} type="button">
+            <span aria-hidden="true">✦</span>Create a diary<span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      ) : (
         <>
           <div className="saved-diary-heading">
             <h2>Your bookshelf</h2>

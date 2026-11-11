@@ -35,7 +35,8 @@ npm start
 ## Notebook features
 
 - `/` — maintenance homepage and link to the notebook.
-- `/personal-diary` — Anshuu's book-style notebook and a small diary-creation link.
+- `/personal-diary` — Anshuu's book-style notebook, with links to create a diary or open your bookshelf.
+- `/bookshelf` — manage, unlock, and delete diaries saved in this browser.
 - `/create-diary` — set a name, diary title, and animated date-of-birth lock.
 - `/my-diary/<id>` — write and draw on pages, format text, and turn pages.
 - Visitor diaries can be reopened with their date-of-birth lock and are autosaved in that browser's local storage.

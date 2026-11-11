@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import portrait from "@/assets/hero-portrait-cinematic.png";
-import { CustomDiary } from "@/components/custom-diary";
 import { DiaryGate } from "@/components/diary-gate";
 import { DiaryScene } from "@/components/diary-scene";
 import Link from "next/link";
@@ -29,7 +28,9 @@ export default function PersonalDiaryPage() {
         <Link className="create-diary-small" href="/create-diary">
           Create your own diary <span aria-hidden="true">↗</span>
         </Link>
-        <CustomDiary initialView="shelf" />
+        <Link className="create-diary-small" href="/bookshelf">
+          My bookshelf <span aria-hidden="true">↗</span>
+        </Link>
       </div>
       <div aria-hidden="true" className="hero-foot">
         <span className="scroll-cue"><span />A NOTEBOOK KEPT CLOSE TO THE HEART</span>

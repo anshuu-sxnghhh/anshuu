@@ -1079,6 +1079,34 @@ button {
   font-size: clamp(1.7rem, 4vw, 2.4rem);
 }
 
+.empty-bookshelf {
+  display: grid;
+  justify-items: start;
+  gap: 0.9rem;
+  padding: clamp(0.5rem, 2vw, 1rem) 0;
+}
+
+.empty-bookshelf .diary-kicker,
+.empty-bookshelf h1,
+.empty-bookshelf > p {
+  margin: 0;
+}
+
+.empty-bookshelf h1 {
+  color: #f0e7da;
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.empty-bookshelf > p:not(.diary-kicker) {
+  color: #c8c0b5;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
 .clear-bookshelf-button,
 .delete-diary-button {
   min-height: 2.4rem;
@@ -2498,9 +2526,13 @@ html[data-motion="off"] *::after {
   .custom-book-app .book-topbar {
     flex-basis: 2.15rem;
     min-height: 2.15rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   .custom-book-app .book-title-row {
+    flex: 1 1 auto;
     gap: 0.35rem;
   }
 
@@ -2514,6 +2546,8 @@ html[data-motion="off"] *::after {
 
   .custom-book-app .book-text-button {
     min-height: 2rem;
+    position: relative;
+    z-index: 1;
     padding-inline: 0.55rem;
   }
 
