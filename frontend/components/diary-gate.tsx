@@ -25,7 +25,7 @@ export function DiaryGate() {
 
   useEffect(() => {
     if (state.status === "unlocked") {
-      router.replace("/maintenance?from=anshuu");
+      router.replace("/anshuu-diary-maintenance");
     }
   }, [router, state.status]);
 

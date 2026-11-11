@@ -36,6 +36,7 @@ npm start
 
 - `/` — maintenance homepage and link to the notebook.
 - `/personal-diary` — Anshuu's book-style notebook, with links to create a diary or open your bookshelf.
+- `/anshuu-diary-maintenance` — the maintenance page shown after Anshuu's notebook password is accepted.
 - `/bookshelf` — manage, unlock, and delete diaries saved in this browser.
 - `/create-diary` — set a name, diary title, and animated date-of-birth lock.
 - `/my-diary/<id>` — write and draw on pages, format text, and turn pages.
